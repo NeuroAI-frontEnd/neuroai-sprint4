@@ -1,85 +1,61 @@
-const BASE = "https://java-sprint-4.onrender.com";
-
-export type PacientePayload = {
-  nome: string;
-  email: string;
-  cpf?: string;
-  telefone?: string;
-  dataNascimento?: string | null;
-};
-
-export type Medico = {
-  id: number;
-  nome: string;
-  crm?: string;
-  especialidade?: string;
-  telefone?: string;
-  email?: string;
-};
-
 export type Paciente = {
   id: number;
   nome: string;
   email: string;
   cpf?: string;
   telefone?: string;
-  dataNascimento?: string | null;
+  dataNascimento: string | null;
+};
+
+export type Medico = {
+  id: number;
+  nome: string;
+  crm: string;
+  especialidade: string;
+  telefone: string;
+  email: string;
 };
 
 export type Consulta = {
-  id: number;
-  dataConsulta: string;
-  status?: string;
+  id?: number;
+  dataConsulta: string;   // yyyy-mm-dd
+  hora?: string | null;   // hh:mm
+  status: string;
   idPaciente: number;
   idMedico: number;
-  hora?: string | null;
 };
 
-async function safeJson(res: Response) {
-  if (!res.ok) throw new Error(`API error ${res.status}`);
+
+const BASE_URL = "https://java-sprint-4.onrender.com";
+
+
+export async function listarMedicos(): Promise<Medico[]> {
+  const res = await fetch(`${BASE_URL}/medicos`);
   return res.json();
 }
 
-/* PACIENTES */
-export async function listarPacientes(): Promise<Paciente[]> {
-  const res = await fetch(`${BASE}/pacientes`);
-  return safeJson(res);
-}
 
-export async function criarPaciente(payload: PacientePayload): Promise<Paciente> {
-  const res = await fetch(`${BASE}/pacientes`, {
+export async function criarPaciente(data: Omit<Paciente, "id">): Promise<Paciente> {
+  const res = await fetch(`${BASE_URL}/pacientes`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(data),
   });
-  return safeJson(res);
+  return res.json();
 }
 
-/* MEDICOS */
-export async function listarMedicos(): Promise<Medico[]> {
-  const res = await fetch(`${BASE}/medicos`);
-  return safeJson(res);
+
+export async function criarConsulta(data: Consulta): Promise<Consulta> {
+  const res = await fetch(`${BASE_URL}/consultas`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return res.json();
 }
 
-/* CONSULTAS */
+
 export async function listarConsultas(): Promise<Consulta[]> {
-  const res = await fetch(`${BASE}/consultas`);
-  return safeJson(res);
-}
-
-export async function criarConsulta(payload: Omit<Consulta, "id">) {
-  const res = await fetch(`${BASE}/consultas`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  return safeJson(res);
-}
-
-export async function deletarConsulta(id: number) {
-  const res = await fetch(`${BASE}/consultas/${id}`, {
-    method: "DELETE",
-  });
-  if (!res.ok) throw new Error("Erro ao deletar consulta");
-  return true;
+  const res = await fetch(`${BASE_URL}/consultas`);
+  return res.json();
 }
