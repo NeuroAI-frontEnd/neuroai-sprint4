@@ -18,8 +18,8 @@ export type Medico = {
 
 export type Consulta = {
   id?: number;
-  dataConsulta: string;   // yyyy-mm-dd
-  hora?: string | null;   // hh:mm
+  dataConsulta: string;   
+  hora?: string | null;   
   status: string;
   idPaciente: number;
   idMedico: number;
