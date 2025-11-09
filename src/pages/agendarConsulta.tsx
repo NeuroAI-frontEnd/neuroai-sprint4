@@ -56,10 +56,10 @@ export function AgendarConsulta() {
 
       await criarConsulta({
         dataConsulta: data.dataConsulta,
+        hora: data.hora || null,
         status: "Agendada",
         idPaciente: paciente.id,
         idMedico: medicoMatch.id,
-        hora: data.hora || null,
       });
 
       setMensagem({ type: "success", text: "Consulta agendada com sucesso!" });
