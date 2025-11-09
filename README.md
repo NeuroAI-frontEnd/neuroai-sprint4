@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# NeuroAI 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido durante a sprint3 de FrontEnd da FIAP.
 
-Currently, two official plugins are available:
+[Acesse o site na Web](https://neuroai-sprint3.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Acesse o repositório no GitHub](https://github.com/NeuroAI-frontEnd/neuroai-sprint3)
 
-## React Compiler
+[Veja a apresentação do site no Youtube](https://youtu.be/fhVwmxQMJvo?si=HLFJPDhHk8ciTdMO)
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Agendamento de consultas
+- Visualização e exclusão de consultas
+- Página de FAQ interativa
+- Formulário de contato com validação
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Estrutura
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+````
+src/
+ ├── assets/
+ │    ├── carolina_ft.jpeg
+ │    ├── Daniel_ft.jpg
+ │    ├── Matheus_ft.jpg
+ │    └── favicon.jpg
+ ├── components/
+ │    ├── Header.tsx
+ │    └── Footer.tsx
+ ├── pages/
+ │    ├── Home.tsx
+ │    ├── Sobre.tsx
+ │    ├── Contato.tsx
+ │    ├── Integrantes.tsx
+ │    ├── AgendarConsulta.tsx
+ │    ├── ConsultasMarcadas.tsx
+ │    └── FAQ.tsx
+ ├── App.tsx
+ ├── main.tsx
+ └── index.css
+````
+## Tecnologias
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React
+- TailwindCSS
+- typescript
+- vite
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Capturas de Tela
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Página de Agendamento
+![Agendamento](src/assets/agendamento.png)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Página de Consultas Marcadas
+![Consultas Marcadas](src/assets/marcado.png)
+
+## Integrantes
+
+- **Daniel Nicolas Leoterio**  
+  RM: 562186  
+  Turma: 1TDSPV
+
+  [GitHub](https://github.com/Dan1Nicolas)
+  •
+  [LinkedIn](https://www.linkedin.com/in/daniel-leoterio/)
+
+- **Matheus Moya de Oliveira**  
+  RM: 562822  
+  Turma: 1TDSPV  
+  [GitHub](https://github.com/matheusmoyaoliveira)
+  •
+  [LinkedIn](https://www.linkedin.com/in/matheusmoyaoliveira/)
+
+- **Ana Carolina Pereira Fontes**  
+  RM: 562145  
+  Turma: 1TDSPV  
+  [GitHub](https://github.com/CarolinaaFontes)
+  •
+  [LinkedIn](https://www.linkedin.com/in/ana-carolina-pereira-fontes/) 

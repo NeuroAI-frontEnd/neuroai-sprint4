@@ -1,26 +1,22 @@
-import Carolina from "../assets/images/Carolina_ft.jpg";
-import Daniel from "../assets/images/Daniel_ft.jpg";
-import Matheus from "../assets/images/Matheus_ft.jpg";
-
 export default function Integrantes() {
   const membros = [
     {
       nome: "Ana Carolina Pereira Fontes",
       turma: "1TDSPV",
       rm: "562145",
-      foto: Carolina,
+      foto: "src/assets/Carolina_ft.jpg",
     },
     {
       nome: "Daniel Nicolas Leoterio",
       turma: "1TDSPV",
       rm: "562186",
-      foto: Daniel,
+      foto: "src/assets/Daniel_ft.jpg",
     },
     {
       nome: "Matheus Moya de Oliveira",
       turma: "1TDSPV",
       rm: "562822",
-      foto: Matheus,
+      foto: "src/assets/Matheus_ft.jpg",
     },
   ];
 
@@ -37,7 +33,6 @@ export default function Integrantes() {
               src={membro.foto}
               alt={`Foto de ${membro.nome}`}
               className="w-32 h-32 object-cover rounded-full mb-4"
-              loading="lazy"
             />
             <h2 className="text-lg font-semibold">{membro.nome}</h2>
             <p>Turma: {membro.turma}</p>
