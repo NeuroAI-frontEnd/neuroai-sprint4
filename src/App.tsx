@@ -7,7 +7,7 @@ import Faq from "./pages/faq";
 import Contato from "./pages/contato";
 import Integrantes from "./pages/integrantes";
 import { AgendarConsulta } from "./pages/agendarConsulta";
-import ConsultasMarcadas from "./pages/consultasMarcadas";
+import { ConsultasMarcadas } from "./pages/consultasMarcadas";
 
 export default function App() {
   return (
