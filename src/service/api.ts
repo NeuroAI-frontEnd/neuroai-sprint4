@@ -18,22 +18,21 @@ export type Medico = {
 
 export type Consulta = {
   id?: number;
-  dataConsulta: string;   
-  hora?: string | null;   
+  dataConsulta: string;
+  hora?: string | null;
   status: string;
   idPaciente: number;
   idMedico: number;
 };
 
-
 const BASE_URL = "https://java-sprint-4.onrender.com";
 
+/* ---------------- PACIENTES ---------------- */
 
-export async function listarMedicos(): Promise<Medico[]> {
-  const res = await fetch(`${BASE_URL}/medicos`);
+export async function listarPacientes(): Promise<Paciente[]> {
+  const res = await fetch(`${BASE_URL}/pacientes`);
   return res.json();
 }
-
 
 export async function criarPaciente(data: Omit<Paciente, "id">): Promise<Paciente> {
   const res = await fetch(`${BASE_URL}/pacientes`, {
@@ -41,9 +40,24 @@ export async function criarPaciente(data: Omit<Paciente, "id">): Promise<Pacient
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+
+  if (!res.ok) throw new Error("Erro ao criar paciente");
   return res.json();
 }
 
+/* ---------------- MÉDICOS ---------------- */
+
+export async function listarMedicos(): Promise<Medico[]> {
+  const res = await fetch(`${BASE_URL}/medicos`);
+  return res.json();
+}
+
+/* ---------------- CONSULTAS ---------------- */
+
+export async function listarConsultas(): Promise<Consulta[]> {
+  const res = await fetch(`${BASE_URL}/consultas`);
+  return res.json();
+}
 
 export async function criarConsulta(data: Consulta): Promise<Consulta> {
   const res = await fetch(`${BASE_URL}/consultas`, {
@@ -51,11 +65,15 @@ export async function criarConsulta(data: Consulta): Promise<Consulta> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+
+  if (!res.ok) throw new Error("Erro ao criar consulta");
   return res.json();
 }
 
+export async function deletarConsulta(id: number): Promise<void> {
+  const res = await fetch(`${BASE_URL}/consultas/${id}`, {
+    method: "DELETE",
+  });
 
-export async function listarConsultas(): Promise<Consulta[]> {
-  const res = await fetch(`${BASE_URL}/consultas`);
-  return res.json();
+  if (!res.ok) throw new Error("Erro ao excluir consulta");
 }
