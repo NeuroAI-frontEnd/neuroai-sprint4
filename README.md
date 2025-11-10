@@ -47,6 +47,9 @@ src/
 - typescript
 - vite
 
+## Video da plataforma
+- https://youtu.be/nEIoUoxJW6c
+
 ## Capturas de Tela
 
 ### Página de Agendamento
