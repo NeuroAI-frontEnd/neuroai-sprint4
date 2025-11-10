@@ -38,8 +38,17 @@ export function ConsultasMarcadas() {
             <p><strong>Modalidade:</strong> {c.modalidade}</p>
 
             <button
-              onClick={() => { deletarConsulta(c.id).then(carregar); }}
-              className="mt-3 bg-red-600 text-white px-3 py-1 rounded"
+              onClick={async () => { 
+                try {
+                  await deletarConsulta(c.id);
+                  await carregar();
+                } catch (e) {
+                  console.error("Erro ao excluir consulta", e);
+                }
+              }}    
+              className="mt-3 bg-red-600 hover:bg-red-700 active:bg-red-800 
+             transition-colors duration-200 text-white font-semibold 
+             px-4 py-2 rounded-lg shadow-md"
             >
               Excluir
             </button>
