@@ -2,11 +2,11 @@
 
 Projeto desenvolvido durante a sprint3 de FrontEnd da FIAP.
 
-[Acesse o site na Web](https://neuroai-sprint3.vercel.app/)
+[Acesse o site na Web](https://neuroai-sprint4.vercel.app/)
 
-[Acesse o repositório no GitHub](https://github.com/NeuroAI-frontEnd/neuroai-sprint3)
+[Acesse o repositório no GitHub](https://github.com/NeuroAI-frontEnd/neuroai-sprint4)
 
-[Veja a apresentação do site no Youtube](https://youtu.be/fhVwmxQMJvo?si=HLFJPDhHk8ciTdMO)
+[Veja a apresentação do site no Youtube](https://youtu.be/nEIoUoxJW6c)
 
 
 ## Funcionalidades
