@@ -1,30 +1,38 @@
+import { useForm } from "react-hook-form";
+import { criarConsulta } from "../service/api";
 import { useState } from "react";
 
-export default function AgendarConsulta() {
-  const [mensagem, setMensagem] = useState("");
+type FormData = {
+  data: string;
+  hora: string;
+  modalidade: "Online" | "Presencial";
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = {
-      nome: (form.nome as HTMLInputElement).value,
-      email: (form.email as HTMLInputElement).value,
-      especialidade: (form.especialidade as HTMLSelectElement).value,
-      data: (form.data as HTMLInputElement).value,
-      hora: (form.hora as HTMLInputElement).value,
-    };
+export function AgendarConsulta() {
+  const { register, handleSubmit, reset } = useForm<FormData>();
+  const [mensagem, setMensagem] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [loading, setLoading] = useState(false);
 
-    if (!data.nome || !data.email || !data.especialidade || !data.data || !data.hora) {
-      setMensagem("⚠ Preencha todos os campos!");
-      return;
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+    setMensagem(null);
+
+    try {
+      const dataHora = `${data.data}T${data.hora}:00`;
+
+      await criarConsulta({
+        dataHora,
+        modalidade: data.modalidade,
+      });
+
+      setMensagem({ type: "success", text: "Consulta agendada com sucesso!" });
+      reset();
+    } catch (err) {
+      console.error(err);
+      setMensagem({ type: "error", text: "Erro ao agendar. Tente novamente." });
+    } finally {
+      setLoading(false);
     }
-
-    const consultas = JSON.parse(localStorage.getItem("consultas") || "[]");
-    consultas.push(data);
-    localStorage.setItem("consultas", JSON.stringify(consultas));
-
-    setMensagem("✅ Consulta agendada com sucesso!");
-    form.reset();
   };
 
   return (
@@ -32,50 +40,35 @@ export default function AgendarConsulta() {
       <h1 className="text-3xl font-bold my-6">Agendar Consulta</h1>
 
       {mensagem && (
-        <div className="mb-4 p-3 rounded text-center bg-blue-100 text-blue-700">
-          {mensagem}
+        <div className={`p-3 rounded ${mensagem.type === "success" ? "bg-green-200" : "bg-red-200"}`}>
+          {mensagem.text}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
         <div>
-          <label className="block font-medium">Nome Completo</label>
-          <input
-            type="text"
-            name="nome"
-            className="w-full border rounded p-2"
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full border rounded p-2"
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Especialidade</label>
-          <select name="especialidade" className="w-full border rounded p-2">
-            <option value="">Selecione</option>
-            <option value="neurologia">Neurologia</option>
-            <option value="psiquiatria">Psiquiatria</option>
-            <option value="psicologia">Psicologia</option>
+          <label>Modalidade</label>
+          <select {...register("modalidade")} className="w-full border p-2 rounded">
+            <option value="Presencial">Presencial</option>
+            <option value="Online">Online</option>
           </select>
         </div>
-        <div>
-          <label className="block font-medium">Data</label>
-          <input type="date" name="data" className="w-full border rounded p-2" />
+
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label>Data</label>
+            <input type="date" {...register("data", { required: true })} className="w-full border p-2 rounded" />
+          </div>
+
+          <div>
+            <label>Horário</label>
+            <input type="time" {...register("hora", { required: true })} className="w-full border p-2 rounded" />
+          </div>
         </div>
-        <div>
-          <label className="block font-medium">Horário</label>
-          <input type="time" name="hora" className="w-full border rounded p-2" />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Agendar
+
+        <button disabled={loading} className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded w-full">
+          {loading ? "Agendando..." : "Agendar"}
         </button>
       </form>
     </section>
