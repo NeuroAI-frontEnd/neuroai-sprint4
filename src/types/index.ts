@@ -18,9 +18,6 @@ export interface Medico {
 
 export interface Consulta {
   id: number;
-  dataConsulta: string;
-  status?: string;
-  idPaciente: number;
-  idMedico: number;
-  hora?: string | null;
+  dataHora: string;
+  modalidade: "Presencial" | "Online";
 }
